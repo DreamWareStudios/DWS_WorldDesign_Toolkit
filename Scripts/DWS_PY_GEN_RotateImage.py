@@ -28,8 +28,8 @@ for file_name in os.listdir(dir_path):
         # Open the image
         img = Image.open(os.path.join(dir_path, file_name))
 
-        # Rotate the image 180 degrees
-        img = img.transpose(Image.ROTATE_180)
+        # Rotate the image 90 degrees
+        img = img.transpose(Image.ROTATE_90)
 
         # Save the rotated image
         new_file_name = os.path.splitext(file_name)[0] + '_rotated.png'
