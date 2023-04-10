@@ -23,14 +23,14 @@ from osgeo import gdal
 ortho_folder = r'F:\QGIS\Data\Source Files\20cm Orthography\Tiles'
 infrared_folder = r'F:\QGIS\Data\Source Files\20cm Infrared\Tiles'
 height_folder = r'F:\QGIS\Data\Source Files\20cm Height\Tiles'
-output_folder = r'F:\QGIS\Data\Source Files\AI_IMG'
+output_folder = r'G:\AI\flair-one-starting-kit\dataset\test\D085_2019\Z1_UA\img'
 
 # Get a list of all the tiled images in the ortho folder
 ortho_images = [f for f in os.listdir(ortho_folder) if f.endswith('.tif')]
 
 # Loop through each image and extract the ortho bands
 for i, image in enumerate(ortho_images):
-    if i == 10:  # Stop after processing the first 10 images
+    if i == 1000:  # Stop after processing the first 10 images
         break
 
     # Get the row and column indices from the image name
@@ -63,7 +63,7 @@ for i, image in enumerate(ortho_images):
     
     # Create the output image with 5 channels
     driver = gdal.GetDriverByName('GTiff')
-    output_path = os.path.join(output_folder, f'output_{row}_{col}.tif')
+    output_path = os.path.join(output_folder, f'IMG_{row}_{col}.tif')
     output_ds = driver.Create(output_path, blue.shape[1], blue.shape[0], 5, gdal.GDT_Byte)
     
     # Write the bands to the output image
