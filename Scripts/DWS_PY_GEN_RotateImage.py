@@ -20,7 +20,7 @@ import os
 Image.MAX_IMAGE_PIXELS = None
 
 # Directory containing PNG images
-dir_path = 'F:\\QGIS\\Data\\Source Files\\100cm MNT\\Tiles\\'
+dir_path = 'F:\\QGIS\\Data\\Source Files\\Cartographie 2022\\a\\'
 
 # Loop through all files in directory
 for file_name in os.listdir(dir_path):
@@ -29,7 +29,7 @@ for file_name in os.listdir(dir_path):
         img = Image.open(os.path.join(dir_path, file_name))
 
         # Rotate the image 90 degrees
-        img = img.transpose(Image.ROTATE_90)
+        img = img.transpose(Image.ROTATE_270)
 
         # Save the rotated image
         new_file_name = os.path.splitext(file_name)[0] + '_rotated.png'

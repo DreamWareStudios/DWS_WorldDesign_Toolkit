@@ -115,7 +115,7 @@ for i in range(num_tiles):
             break
 
         # Save the rendered tile to a file in the output directory
-        output_path = os.path.join(output_dir, f'ortho_{i}_{j}' + is_tiff ? 'tiff' : 'jpg')
+        output_path = os.path.join(output_dir, f'ortho_{i}_{j}.tif')
         if is_tiff == 1:
             img = render_job.renderedImage().convertToFormat(QImage.Format_ARGB32)
             img.save(output_path, "TIFF", QImage.Format_ARGB32)
