@@ -20,6 +20,10 @@ The starting-kit contains :
 
 
 
+Download the full datasets here:
+https://ignf.github.io/FLAIR/
+
+
 
 
 -------------------------------
