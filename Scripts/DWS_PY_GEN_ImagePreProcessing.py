@@ -23,15 +23,13 @@ from osgeo import gdal
 ortho_folder = r'F:\QGIS\Data\Source Files\20cm Orthography\Tiles'
 infrared_folder = r'F:\QGIS\Data\Source Files\20cm Infrared\Tiles'
 height_folder = r'F:\QGIS\Data\Source Files\20cm Height\Tiles'
-output_folder = r'G:\AI\flair-one-starting-kit\dataset\test\D085_2019\Z1_UA\img'
+output_folder = r'F:\QGIS\Data\Source Files\Preprocessed Imagery\Tiles'
 
 # Get a list of all the tiled images in the ortho folder
 ortho_images = [f for f in os.listdir(ortho_folder) if f.endswith('.tif')]
 
 # Loop through each image and extract the ortho bands
 for i, image in enumerate(ortho_images):
-    if i == 1000:  # Stop after processing the first 10 images
-        break
 
     # Get the row and column indices from the image name
     image_parts = os.path.splitext(image)[0].split('_')

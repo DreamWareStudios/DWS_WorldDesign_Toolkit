@@ -20,7 +20,7 @@ import os
 Image.MAX_IMAGE_PIXELS = None
 
 # Directory containing PNG images
-dir_path = 'F:\\QGIS\\Data\\Source Files\\Cartographie 2022\\a\\'
+dir_path = r'F:\QGIS\Data\Source Files\100cm MNT\TerreSculptor\Out'
 
 # Loop through all files in directory
 for file_name in os.listdir(dir_path):
