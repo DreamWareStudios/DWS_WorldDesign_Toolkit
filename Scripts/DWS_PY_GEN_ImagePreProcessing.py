@@ -23,7 +23,9 @@ from osgeo import gdal
 ortho_folder = r'F:\QGIS\Data\Source Files\20cm Orthography\Tiles'
 infrared_folder = r'F:\QGIS\Data\Source Files\20cm Infrared\Tiles'
 height_folder = r'F:\QGIS\Data\Source Files\20cm Height\Tiles'
-output_folder = r'F:\QGIS\Data\Source Files\Preprocessed Imagery\Tiles'
+mnt_folder = r'F:\QGIS\Data\Source Files\20cm MNT\Tiles'
+
+output_folder = r'G:\AI\flair-one-starting-kit\dataset\test\D085_2019\Z1_UA\img'
 
 # Get a list of all the tiled images in the ortho folder
 ortho_images = [f for f in os.listdir(ortho_folder) if f.endswith('.tif')]
@@ -33,8 +35,9 @@ for i, image in enumerate(ortho_images):
 
     # Get the row and column indices from the image name
     image_parts = os.path.splitext(image)[0].split('_')
-    row = int(image_parts[1])
-    col = int(image_parts[2])
+    print(image_parts)
+    row = int(image_parts[2])
+    col = int(image_parts[3])
     
     # Load the ortho image
     ortho_path = os.path.join(ortho_folder, image)
@@ -46,18 +49,27 @@ for i, image in enumerate(ortho_images):
     red = ortho_ds.GetRasterBand(3).ReadAsArray()
     
     # Load the infrared image
-    infrared_path = os.path.join(infrared_folder, f'infra_{row}_{col}.tif')
+    infrared_path = os.path.join(infrared_folder, f'mns_good_{row}_{col}.tif')
     infrared_ds = gdal.Open(infrared_path)
     
     # Extract the infrared band
     nir = infrared_ds.GetRasterBand(1).ReadAsArray()
     
     # Load the height image
-    height_path = os.path.join(height_folder, f'mns_{row}_{col}.tif')
+    height_path = os.path.join(height_folder, f'mns_good_{row}_{col}.tif')
     height_ds = gdal.Open(height_path)
     
-    # Extract the height band and multiply by 5
-    height = height_ds.GetRasterBand(1).ReadAsArray() * 5
+    # Load the MNT image
+    mnt_path = os.path.join(mnt_folder, f'mns_good_{row}_{col}.tif')
+    mnt_ds = gdal.Open(mnt_path)
+    
+    # Extract the height band and calculate the difference between height and MNT
+    height = height_ds.GetRasterBand(1).ReadAsArray()
+    mnt = mnt_ds.GetRasterBand(1).ReadAsArray()
+    height_diff = mnt
+    
+    # Multiply the height difference by 5
+    height_diff = height_diff
     
     # Create the output image with 5 channels
     driver = gdal.GetDriverByName('GTiff')
@@ -65,11 +77,11 @@ for i, image in enumerate(ortho_images):
     output_ds = driver.Create(output_path, blue.shape[1], blue.shape[0], 5, gdal.GDT_Byte)
     
     # Write the bands to the output image
-    output_ds.GetRasterBand(1).WriteArray(blue)
-    output_ds.GetRasterBand(2).WriteArray(green)
-    output_ds.GetRasterBand(3).WriteArray(red)
-    output_ds.GetRasterBand(4).WriteArray(nir)
-    output_ds.GetRasterBand(5).WriteArray(height)
+    output_ds.GetRasterBand(1).WriteArray(blue.astype(np.uint8))
+    output_ds.GetRasterBand(2).WriteArray(green.astype(np.uint8))
+    output_ds.GetRasterBand(3).WriteArray(red.astype(np.uint8))
+    output_ds.GetRasterBand(4).WriteArray(nir.astype(np.uint8))
+    output_ds.GetRasterBand(5).WriteArray(height_diff.astype(np.uint8))
     
     # Set the output image metadata
     output_ds.SetGeoTransform(ortho_ds.GetGeoTransform())
