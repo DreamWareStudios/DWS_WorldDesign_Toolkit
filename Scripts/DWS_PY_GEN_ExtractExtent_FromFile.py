@@ -23,13 +23,13 @@ import rasterio
 from rasterio.windows import from_bounds
 
 # Define the input file path
-input_file = r'F:\QGIS\Data\IGN Processed Data\MNT\MNT_Orne_Merged.tif'
+input_file = r'C:\Users\sebas\Downloads\output.tif'
 
 # Define the output file path
-output_file = r'F:\QGIS\Data\IGN Processed Data\MNT\MNT_Orne_Merged_trimmed.tif'
+output_file = r'C:\Users\sebas\Downloads\processed.tif'
 
-# Define the CRS extent
-xmin, ymin, xmax, ymax = 482923, 6855753, 497204, 6870034
+# Define the CRS extent (West, South, East, North)
+xmin, ymin, xmax, ymax = 330000, 6800000, 340000, 6810000
 crs_extent = (xmin, ymin, xmax, ymax)
 
 # Define the CRS
